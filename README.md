@@ -6,6 +6,8 @@ I always wanted to do something using AI APIs. Hackclub API is free for any teen
 
 It uses Socket mode so no redirect URL is required
 
+Invite it to your channel and mentioning it will do the work
+
 
 ![images (3)](https://github.com/user-attachments/assets/7e11e593-37c2-41bb-8288-6b1a64a2150c)
 
