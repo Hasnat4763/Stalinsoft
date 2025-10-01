@@ -15,8 +15,7 @@ client = WebClient(token=bot_token)
 
 
 @app.event("app_mention")
-def handle_mention_event(body, say, ack, logger):
-    ack()
+def handle_mention_event(body, say, logger):
     logger.info(body)
     event = body.get("event", {})
     prompt = event.get("text", "")
