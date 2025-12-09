@@ -17,11 +17,21 @@ client = WebClient(token=bot_token)
 @app.event("app_mention")
 def handle_mention_event(body, say, logger):
     logger.info(body)
+    print("EVENT RECEIVED!")
+    print(body)
     event = body.get("event", {})
     prompt = event.get("text", "")
     response = get_response(prompt)
-    say(blocks = response, text = "GULAG!!!")
+    say(blocks = response)
 
+@app.command("/stalinsoft")
+def handle_stalinsoft_command(ack, body, say):
+    ack()
+    event = body.get("event", {})
+    prompt = event.get("text", "")
+    response = get_response(prompt)
+    say(blocks = response)
+    
 if __name__ == "__main__":
     handler = SocketModeHandler(app, app_token)
     handler.start()

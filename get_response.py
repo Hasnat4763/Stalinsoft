@@ -1,6 +1,11 @@
 import requests
+import os
+import dotenv
+dotenv.load_dotenv(".env")
 
-url = "https://ai.hackclub.com/chat/completions"
+url = "https://ai.hackclub.com/proxy/v1/chat/completions"
+
+api_key = os.environ.get("API_KEY")
 
 def get_response(message):
     try:
@@ -10,16 +15,18 @@ def get_response(message):
         ]
         
         payload = {
+            "model": "qwen/qwen3-32b",
             "messages": messages
         }
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
         
-        response = requests.post(url, json = payload)
+        response = requests.post(url, json = payload, headers = headers)
         response.raise_for_status()
         
         data = response.json().get("choices")[0].get("message").get("content").strip()
-        
-        data = data.split("</think>")
-        data = data[1]
         blocks = []
 
         blocks.append({"type": "divider"})
@@ -32,4 +39,4 @@ def get_response(message):
         })
         return blocks
     except requests.exceptions.RequestException as e:
-        return("Sorry ma comrade, Nazis have bombed our servers again. We have to wait.")
+        return("Sorry ma comrade, Nazis have bombed our servers again. We have to wait." + str(e))
